@@ -20,24 +20,24 @@ public class Hasher {
         return message;
     }
 
+
     public Hasher addPadding() {
-        String strForPadding = message.toString(2);
-        System.out.println("message length " + strForPadding.length());
-        strForPadding = strForPadding + "1";
-        while (strForPadding.length() % pow(64, 3) != 0) {
-            strForPadding = strForPadding + "0";
+        message = message.shiftLeft(1).or(BigInteger.ONE);
+
+        while (message.bitLength() % pow(64, 3) != 0) {
+            message = message.shiftLeft(1);
         }
-        message = new BigInteger(strForPadding);
+
         return this;
     }
 
-    private List<String> splitOnStringsWithLength(int stringLength) {
-        List<String> spittedStringList;
+    public List<String> splitOnStringsWithLength(int stringLength) {
+        List<String> splited64BitBlocks;
 
         Iterable<String> result = Splitter.fixedLength(stringLength).split(message.toString(2));
-        spittedStringList = Arrays.asList(Iterables.toArray(result, String.class));
+        splited64BitBlocks = Arrays.asList(Iterables.toArray(result, String.class));
 
-        return spittedStringList;
+        return splited64BitBlocks;
     }
 
     Hasher hash() {

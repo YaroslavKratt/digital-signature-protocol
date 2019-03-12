@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class FileReader {
-    private  static  final  String FILE_PATH = "D:\\Study\\cryptology\\4_course\\2_period\\CRYPTO_LAB2\\test_my_ass.txt";
+    private  static  final  String FILE_PATH = "C:\\Users\\Yaroslav_Kratt\\LabTasks\\2_period\\CRYPTO_LAB2\\some_text.txt";
     public static BigInteger readBytesFromFile() {
         File file = new File(FILE_PATH);
         byte[] byteArray = new byte[0];
