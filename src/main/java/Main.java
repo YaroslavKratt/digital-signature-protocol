@@ -5,14 +5,9 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         BigInteger bigIntegerFromFyle = new HashFile().readBytesFromFile();
-        Hasher hasher = new Hasher(bigIntegerFromFyle);
-        System.out.println(hasher.hash());
-       // BigInteger hash = new BigInteger(64, 15, new Random());
-         //BigInteger hash = new BigInteger("14241010612313363537",10);
-
-        System.out.println(hasher.getHash().toString(2));
-        Signature signature = new Signature(hasher.getHash());
+      /*  System.out.println(hash.getHash().toString(2));
+        Signature signature = new Signature(hash.getHash());
         signature.sign();
-        System.out.println(signature.verify());
+        System.out.println(signature.verify());*/
     }
 }

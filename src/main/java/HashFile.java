@@ -16,9 +16,15 @@ public class HashFile {
         byte[] eightBytes = new byte[8];
         int freeBytes = 0;
         long byteFlowLength = randomAccessFile.length();
-
+        long hash = 0;
         for (int j = 0; j < byteFlowLength; j++) {
-            fillArrayByNullIfNumberModEightIsZero(j, eightBytes);
+
+            if (j % AMOUNT_OF_BYTES == 0) {
+                if(j!=0) {
+                    hash = Hash.round(eightBytes, hash);
+                }
+                Arrays.fill(eightBytes, (byte) 0);
+            }
             eightBytes[j % 8] = randomAccessFile.readByte();
 
 
@@ -31,6 +37,10 @@ public class HashFile {
                 System.out.println("index of array  when the flow ended: " + j%8);
                 addPaddingOnIndex(j % 8 +1, eightBytes);
             }
+
+
+
+
         }
 
         System.out.println("number of bytes missing up to 8: " + freeBytes);
@@ -40,15 +50,9 @@ public class HashFile {
         return BigInteger.ONE;
     }
 
-    void fillArrayByNullIfNumberModEightIsZero(int number, byte[] array) {
-        if (number % AMOUNT_OF_BYTES == 0) {
-            Arrays.fill(array, (byte) 0);
-        }
 
 
-    }
-
-    void printBytes(byte[] array) {
+   static void printBytes(byte[] array) {
         StringBuilder sb = new StringBuilder();
         for (byte b : array) {
             sb.append(String.format("%02X ", b));
