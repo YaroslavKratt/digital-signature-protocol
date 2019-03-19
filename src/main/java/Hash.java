@@ -29,18 +29,13 @@ public class Hash {
          long longMessage = ByteBuffer.wrap(m).getLong();
         long messageForMISTY = longMessage ^ h;
         MISTY misty = new MISTY(messageForMISTY,longMessage);
-        //finished here
-      //  BigInteger encrypted = new BigInteger(misty.cypher(), 2);
-       // return encrypted.xor(m).xor(h);
-       return 0;
+
+       System.out.println("B");
+
+       return misty.cypher()^longMessage^h;
     }
 
-    private String fillTo64Bits(String str) {
-        while (str.length() != 64) {
-            str = "0" + str;
-        }
-        return str;
-    }
+
 
 
 }
