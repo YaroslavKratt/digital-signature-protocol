@@ -24,7 +24,7 @@ public class Hasher {
     public Hasher addPadding() {
         message = message.shiftLeft(1).or(BigInteger.ONE);
 
-        while (message.bitLength() % pow(64, 3) != 0) {
+        while (message.bitLength() % 64 != 0) {
             message = message.shiftLeft(1);
         }
 

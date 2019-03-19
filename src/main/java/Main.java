@@ -1,9 +1,10 @@
+import java.io.IOException;
 import java.math.BigInteger;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        BigInteger bigIntegerFromFyle = FileReader.readBytesFromFile();
+        BigInteger bigIntegerFromFyle = new HashFile().readBytesFromFile();
         Hasher hasher = new Hasher(bigIntegerFromFyle);
         System.out.println(hasher.hash());
        // BigInteger hash = new BigInteger(64, 15, new Random());
