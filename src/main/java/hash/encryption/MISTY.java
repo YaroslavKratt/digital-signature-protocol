@@ -1,4 +1,7 @@
+package hash.encryption;
+
 import org.apache.commons.lang.ArrayUtils;
+import utills.Utills;
 
 import java.nio.ByteBuffer;
 
@@ -9,34 +12,30 @@ public class MISTY {
     private long R;
     private long[] roundKeys = new long[4];
 
-    MISTY(long message, long key) {
-        L = reverseOrderOfBytes(message >> 32);
-        R = reverseOrderOfBytes(message);
-        roundKeys[0] = reverseOrderOfBytes(key >> 32);
-        roundKeys[1] = reverseOrderOfBytes(key);
+    public MISTY(long message, long key) {
+        L = Utills.reverseOrderOfBytes(message >> 32);
+        R = Utills.reverseOrderOfBytes(message);
+        roundKeys[0] = Utills.reverseOrderOfBytes(key >> 32);
+        roundKeys[1] = Utills.reverseOrderOfBytes(key);
         roundKeys[2] = ~roundKeys[1];
         roundKeys[3] = ~roundKeys[0];
     }
 
-    private long reverseOrderOfBytes(long number) {
-        byte[] temp = ByteBuffer.allocate(4).putInt((int) number).array();
-        ArrayUtils.reverse(temp);
-
-        return ByteBuffer.wrap(temp).getInt();
-    }
-
-    long cypher() {
+    public long cypher() {
         for (long key : roundKeys) {
             long temp = L;
             L = round((int)key, (int)R) ^ temp;
             R = temp;
         }
 
-        L= reverseOrderOfBytes(L);
-        R= reverseOrderOfBytes(R);
+        L= Utills.reverseOrderOfBytes(L);
+        R= Utills.reverseOrderOfBytes(R);
 
         //говнище, но работает, может перепишу потом
-        byte[] result = ArrayUtils.addAll(ByteBuffer.allocate(4).putInt((int) R).array(),ByteBuffer.allocate(4).putInt((int) L).array());
+        byte[] result = ArrayUtils
+                .addAll(ByteBuffer.allocate(4).putInt((int) R).array(),
+                        ByteBuffer.allocate(4).putInt((int) L).array());
+
         return ByteBuffer.wrap(result).getLong();
 
     }
