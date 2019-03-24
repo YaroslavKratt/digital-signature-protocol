@@ -39,14 +39,8 @@ public class CommandArgumentProcessor {
 
             BigInteger hash = new HashFile(files[1]).readAndHashFile();
             Signature signature = new Signature(hash);
-            System.out.println("Y " + Y.toString(16));
-            System.out.println("K " + K.toString(16));
-            System.out.println("S " + S.toString(16));
-            System.out.println("HASH " + Utills.byteArrayToString(hash.toByteArray()));
-
 
             boolean verificationResult  = signature.verify(S,Y,K,hash);
-            System.out.println(verificationResult);
 
             System.out.println(verificationResult ? "Підпис вірний" : "Підпис невірний");
         } catch (IOException ex) {
@@ -55,8 +49,6 @@ public class CommandArgumentProcessor {
     }
 
     private BigInteger parseBigIntegerFromString(String readLine) {
-        System.out.println("read from file " + readLine);
-        System.out.println("substr " + readLine.substring(4));
 
         return new BigInteger(readLine.substring(4),16);
     }
@@ -69,7 +61,6 @@ public class CommandArgumentProcessor {
 
             Signature signature = new Signature(fileHash);
             signature.sign();
-            System.out.println(signature.verify(signature.getSignature(),signature.getY(),signature.getK(), new HashFile(files[1]).readAndHashFile()));
             writer.setS(signature.getSignature().toString(16))
                     .setG(signature.getG().toString(16))
                     .setK(signature.getK().toString(16))

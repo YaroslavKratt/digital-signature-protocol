@@ -29,7 +29,10 @@ public class HashFile {
         for (int j = 0; j < byteFlowLength; j++) {
             index = j % 8;
             freeBytes = 8 - (j % 8 + 1);
-
+           if(j%500000 ==0) {
+               System.out.printf("%.2f",(double)j/byteFlowLength*100);
+               System.out.println("%");
+           }
             if (j % AMOUNT_OF_BYTES == 0) {
                 if (j != 0) {
                     hash = MerkleDamgardHash.round(eightBytes, hash);
@@ -50,9 +53,9 @@ public class HashFile {
             addPaddingOnIndex(0, eightBytes);
             hash = MerkleDamgardHash.round(eightBytes, hash);
         }
-        System.out.println("HASH:");
-        Utills.printBytes(ByteBuffer.allocate(8).putLong(hash).array());
-        System.out.println();
+        /*System.out.println("HASH:");
+        Utills.printBytes(ByteBuffer.allocate(8).putLong(hash).array());*/
+      /*  System.out.println();*/
 
         return new BigInteger(ByteBuffer.allocate(8).putLong(hash).array());
     }
