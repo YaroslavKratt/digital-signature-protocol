@@ -1,3 +1,7 @@
+package hash;
+
+import hash.encryption.MISTY;
+
 import java.nio.ByteBuffer;
 
 class MerkleDamgårdHash {

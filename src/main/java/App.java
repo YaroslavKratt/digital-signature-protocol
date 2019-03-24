@@ -1,13 +1,10 @@
-import java.io.IOException;
-import java.math.BigInteger;
+import processor.CommandArgumentProcessor;
 
 public class App {
-    public static void main(String[] args) throws IOException {
 
-        BigInteger bigIntegerFromFyle = new HashFile().readAndHash();
-        Signature signature = new Signature(bigIntegerFromFyle);
-        System.out.println("SIGNATURE: ");
-        Utills.printBytes(signature.sign().getSignature().toByteArray());
+    public static void main(String[] args) {
+        CommandArgumentProcessor commandArgumentProcessor = new CommandArgumentProcessor(args[0], args);
+        commandArgumentProcessor.process();
 
     }
 }
