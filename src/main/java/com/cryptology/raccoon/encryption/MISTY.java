@@ -1,7 +1,7 @@
-package hash.encryption;
+package com.cryptology.raccoon.encryption;
 
+import com.cryptology.raccoon.utills.Utills;
 import org.apache.commons.lang.ArrayUtils;
-import utills.Utills;
 
 import java.nio.ByteBuffer;
 

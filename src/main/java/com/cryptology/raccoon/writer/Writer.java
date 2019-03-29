@@ -1,5 +1,8 @@
-package writer;
+package com.cryptology.raccoon.writer;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,6 +20,34 @@ public class Writer {
     private final String file2SignAdd = "File2Sign.sig.add";
     private final String file2Sign = "File2Sign.sig";
     private String separator = "------------------------------";
+
+    public static void draw(int[][] array) {
+        for (int[] a : array) {
+            for (int i = 0; i < a.length; i++) {
+                System.out.print(a[i] == 0 ? " " : "#");
+            }
+            System.out.println();
+        }
+    }
+
+    public static int[][] getArray(String s, Font font) {
+        FontMetrics metrics = new JLabel().getFontMetrics(font);
+        int width = metrics.stringWidth(s);
+        int height = metrics.getMaxAscent();
+        BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = bi.createGraphics();
+        g2d.setFont(font);
+        g2d.setColor(Color.black);
+        g2d.drawString(s, 0, height);
+        g2d.dispose();
+        int[][] array = new int[height][width];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                array[i][j] = (bi.getRGB(j, i) != 0 ? 1 : 0);
+            }
+        }
+        return array;
+    }
 
 
     public void write() {
@@ -55,7 +86,6 @@ public class Writer {
 
             writer1.write(separator);
             writer1.close();
-            System.out.println("Signed. Check " + file2SignAdd);
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,11 +1,9 @@
-package signature;
+package com.cryptology.raccoon.signature;
 
 import org.apache.commons.lang.ArrayUtils;
 
 import java.math.BigInteger;
-import java.nio.ByteBuffer;
 import java.security.SecureRandom;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class Signature {
@@ -35,9 +33,7 @@ public class Signature {
         ArrayUtils.reverse(hashAsBytes);
         this.hash = new BigInteger(ArrayUtils
                 .addAll(hashAsBytes,padding));
-        System.out.println(hash.toString(16));
         u = new BigInteger(128, new SecureRandom()).mod(p);
-        System.out.println("U " +u.toString(16));
 
         do {
             x = new BigInteger(128, new SecureRandom());
@@ -48,9 +44,7 @@ public class Signature {
         }
         y = a.modPow(x, p);
 
-        System.out.println("Y " + y.toString(16));
         z = this.hash.multiply(a.modPow(u, p)).mod(p);
-        System.out.println("Z " +z.toString(16));
 
     }
 
@@ -60,8 +54,6 @@ public class Signature {
         BigInteger k = ((z.subtract(u)).multiply(x.modInverse(q))).mod(q);
         BigInteger g = ((u.multiply(x)).multiply((z.subtract(u)).modInverse(q))).mod(q);
 
-        System.out.println("K " + k.toString(16));
-        System.out.println("g " + g.toString(16));
         this.k = k;
         this.g = g;
         keys.put("k", k);

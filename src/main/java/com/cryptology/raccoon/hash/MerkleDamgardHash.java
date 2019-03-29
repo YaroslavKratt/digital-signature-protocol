@@ -1,13 +1,8 @@
-package hash;
+package com.cryptology.raccoon.hash;
 
-import com.google.common.base.Splitter;
-import com.google.common.collect.Iterables;
-import hash.encryption.MISTY;
+import com.cryptology.raccoon.encryption.MISTY;
 
-import java.math.BigInteger;
 import java.nio.ByteBuffer;
-import java.util.Arrays;
-import java.util.List;
 
 public class MerkleDamgardHash {
 

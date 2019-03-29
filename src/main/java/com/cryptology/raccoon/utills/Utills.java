@@ -1,4 +1,4 @@
-package utills;
+package com.cryptology.raccoon.utills;
 
 import org.apache.commons.lang.ArrayUtils;
 
